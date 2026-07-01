@@ -3,6 +3,7 @@ const reset_btn = document.getElementById("resetGame");
 const msgContainer = document.querySelector(".msg_container");
 const msg = document.getElementById("msg");
 const newGameBtn = document.getElementById("newGameBtn");
+const gameComplete = document.getElementById("gameBoardFull");
 
 const winning_patterns = [
   [0, 1, 2],
@@ -16,6 +17,7 @@ const winning_patterns = [
 ]
 
 let turnO = true;    // player O player X
+let chance = 0;
 
 function disabled() {
   for (box of boxes) {
@@ -33,10 +35,18 @@ function enable() {
 function resetGame() {
   enable();
   turnO = true;
+  chance = 0;
   msgContainer.classList.add("hidden");
+  gameComplete.classList.add('hidden');
   for (box of boxes) {
     box.textContent = "";
   }
+}
+
+if (chance >= 9) {
+  gameComplete.innerText = "Oops No one is Winner Try Again!!"
+  gameComplete.classList.remove('hidden');
+  console.log("no one win....");
 }
 
 boxes.forEach(box => {
@@ -50,6 +60,9 @@ boxes.forEach(box => {
       turnO = true;
     }
     box.disabled = true;
+    chance++;
+
+    console.log(chance, "chance..................")
     checkWinner();
   })
 
@@ -72,6 +85,9 @@ function checkWinner() {
     if (pos1 != "" && pos2 != "" && pos3 != "") {
       if (pos1 === pos2 && pos2 === pos3) {
         showWinner(pos1);
+      } else if (chance >= 9) {
+        gameComplete.innerText = "Oops No one is Winner Try Again!!"
+        gameComplete.classList.remove('hidden');
       }
     }
 

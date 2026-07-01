@@ -76,6 +76,11 @@ body {
     background-color: #4cae63;
 }
 
+#gameBoardFull {
+    color: #ee1111;
+    font-size: 1.5rem;
+}
+
 .hidden {
     display: none;
 }
